@@ -57,12 +57,19 @@ public class UserLottosCreator implements UserTicketCreator {
     }
 
     private void validate(int manualCount, List<List<Integer>> manualNumbers) {
+        if (manualCount == 0) {
+            return;
+        }
         if (manualCount != manualNumbers.size()) {
             throw new LottoTicketException(ExceptionMessages.TICKET.message());
         }
     }
 
     private int parseNumber(String text) {
-        return Integer.parseInt(text);
+        try {
+            return Integer.parseInt(text);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 }

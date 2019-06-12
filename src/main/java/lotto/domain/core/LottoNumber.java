@@ -21,13 +21,13 @@ public class LottoNumber implements TicketNumber {
     }
 
     @Override
-    public int get() {
+    public int toInt() {
         return number;
     }
 
     @Override
     public int compareTo(TicketNumber o) {
-        return number - o.get();
+        return number - o.toInt();
     }
 
     @Override

@@ -7,6 +7,7 @@ import java.util.List;
 
 public class UserLottos implements UserTickets {
     private final List<Ticket> tickets;
+    private UserLottoSeed seed;
 
     public UserLottos(List<Ticket> tickets) {
         this.tickets = tickets;
