@@ -1,7 +1,7 @@
 package lotto.dto;
 
 import lotto.domain.LottoResult;
-import lotto.domain.core.Rank;
+import lotto.domain.Rank;
 
 import java.math.BigDecimal;
 import java.util.Map;

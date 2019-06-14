@@ -38,17 +38,20 @@ function postAjax(url, data, success) {
 function addHistory(numberList) {
     const historyDiv = document.getElementById("history");
     const span = document.createElement("span");
-
-    numberList
-        .forEach(v => {
-            const number = document.createElement("p");
-            number.className = "ball";
-            number.innerText = v;
-            span.appendChild(number);
-        })
-    historyDiv.appendChild(span);
+    makeBalls(numberList, historyDiv);
     deliveryData.manualLottos.push(selectedBalls);
-    numberList = [];
+    selectedBalls = [];
+}
+
+function makeBalls(number, node) {
+    const span = document.createElement('span');
+    number.forEach(v => {
+        const ball = document.createElement('p');
+        ball.className = 'ball';
+        ball.innerText = v;
+        span.appendChild(ball);
+    })
+    node.appendChild(span);
 }
 
 function clearBalls() {
@@ -88,9 +91,9 @@ generateBtn.addEventListener('click', () => {
                 clearBalls();
                 document.getElementById('history').innerHTML = "";
                 const resData = JSON.parse(res);
-                resData.forEach(data => {
-                    addHistory(JSON.parse(data));
-                })
+                resData
+                    .map(data => addHistory(JSON.parse(data)));
+                alert("구입완료");
             })
         }, { once: true });
     })

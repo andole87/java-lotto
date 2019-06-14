@@ -1,4 +1,4 @@
-package lotto.domain.core;
+package lotto.domain;
 
 public interface TicketNumber extends Comparable<TicketNumber> {
 

@@ -1,8 +1,8 @@
 package lotto;
 
 import com.google.gson.Gson;
-import lotto.domain.UserLottoSeed;
-import lotto.domain.UserLottos;
+import lotto.domain.UserTickets;
+import lotto.service.UserLottosCreator;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
@@ -17,6 +17,8 @@ public class WebUILottoApplication {
     public static void main(String[] args) {
         externalStaticFileLocation("templates");
         staticFiles.location("templates");
+        Gson gson = new Gson();
+
         get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             return render(model, "index.html");
@@ -39,8 +41,6 @@ public class WebUILottoApplication {
             return render(model, "lotto.html");
         });
 
-        Gson gson = new Gson();
-
         post("/userLotto", (req, res) -> {
             int manualCount;
             try {
@@ -48,9 +48,7 @@ public class WebUILottoApplication {
             } catch (NumberFormatException e) {
                 manualCount = 0;
             }
-
-            UserLottoSeed seed = new UserLottoSeed(req.queryParams("lottoMoney"), manualCount, Arrays.asList(req.queryParamsValues("manualLottos")));
-            UserLottos userLottos = seed.create();
+            UserTickets userLottos = new UserLottosCreator(req.queryParams("lottoMoney"), manualCount, Arrays.asList(req.queryParamsValues("manualLottos"))).create();
             return userLottos.tickets().stream().map(ticket -> ticket.ticketNumbers().toString()).collect(Collectors.toList());
         }, gson::toJson);
 

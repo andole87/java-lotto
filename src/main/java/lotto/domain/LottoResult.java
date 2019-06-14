@@ -1,7 +1,5 @@
 package lotto.domain;
 
-import lotto.domain.core.Rank;
-
 import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
